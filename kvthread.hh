@@ -104,6 +104,24 @@ public:
     }
     free(limbo_head_);
   }
+  static void destruct_all() {
+    std::vector<threadinfo *> tis;
+    for (threadinfo *ti = allthreads; ti; ti = ti->next()) {
+      tis.push_back(ti);
+    }
+    active_epoch += 2;
+    globalepoch += 1;
+
+    for (auto *ti : tis) {
+      ti->rcu_stop();
+    }
+
+    for (auto *ti : tis) {
+      ti->~threadinfo();
+      free(ti);
+    }
+    allthreads = nullptr;
+  }
 
   // thread information
   int purpose() const { return purpose_; }
