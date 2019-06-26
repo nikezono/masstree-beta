@@ -449,6 +449,6 @@ extern void fail_masstree_precondition(const char* file, int line, const char* a
 
 #endif])
 
-AC_DEFINE_UNQUOTED([HAVE_UNALIGNED_ACCESS], [1], [Define if unaligned accesses are OK.])
+AC_DEFINE_UNQUOTED([HAVE_UNALIGNED_ACCESS], [0], [Define if unaligned accesses are OK.])
 
 AC_OUTPUT
